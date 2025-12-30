@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+case $1 in
+    configure)
+        IMG_PATH="/usr/share/rsdk-image/image.tar"
+        docker load -i "$IMG_PATH"
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0

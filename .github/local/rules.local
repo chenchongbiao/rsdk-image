@@ -1,0 +1,21 @@
+# Custom rules for debian/rules
+# This file is included by the auto-generated debian/rules
+
+IMAGE_NAME ?= rsdk-image
+
+override_dh_auto_install:
+	# Generate and stage images directly into the package dir so dh_prep won't wipe them
+	pkgdir=$(CURDIR)/debian/rsdk-image; \
+	dh_auto_install --destdir="$$pkgdir" || true; \
+	imgdir=$$pkgdir/usr/share/rsdk-image; \
+	mkdir -p $$imgdir; \
+	if command -v docker >/dev/null 2>&1; then \
+	  echo "Building $(IMAGE_NAME) for current platform ..."; \
+	  docker build -t $(IMAGE_NAME) . \
+	    || { echo "ERROR: docker build failed" >&2; exit 1; }; \
+	  docker save $(IMAGE_NAME) -o $$imgdir/image.tar \
+	    || { echo "ERROR: docker save failed" >&2; exit 1; }; \
+	else \
+	  echo "ERROR: docker not available; install docker" >&2; \
+	  exit 1; \
+	fi

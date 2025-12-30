@@ -1,0 +1,3 @@
+[submodule "rsdk"]
+	path = rsdk
+	url = https://github.com/RadxaOS-SDK/rsdk.git
