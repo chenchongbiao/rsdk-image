@@ -30,6 +30,7 @@ jobs:
           git branch -D main || true
           git switch -c main || true
           make dch
+          ls -l /var/run/docker.sock
           make test deb
           git reset --hard HEAD~1
           rm ../*.deb
