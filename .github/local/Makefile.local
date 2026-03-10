@@ -15,9 +15,9 @@ $(SRC-MAN)/%: $(SRC-MAN)/%.md
 build-docker:
 	if command -v docker >/dev/null 2>&1; then \
 	  echo "Building $(IMAGE_NAME) for current platform ..."; \
-	  docker build -t $(IMAGE_NAME) . \
+	  sudo docker build -t $(IMAGE_NAME) . \
 	    || { echo "ERROR: docker build failed" >&2; exit 1; }; \
-	  docker save $(IMAGE_NAME) -o image.tar \
+	  sudo docker save $(IMAGE_NAME) -o image.tar \
 	    || { echo "ERROR: docker save failed" >&2; exit 1; }; \
 	else \
 	  echo "ERROR: docker not available; install docker" >&2; \
